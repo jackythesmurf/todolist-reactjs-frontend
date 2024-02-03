@@ -3,6 +3,8 @@ import { Task } from '../types/task';
 import { useGetAllTasks } from '../services/get-all-task'; // Adjust the import path as necessary
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
+import DeleteButton from './Buttons/DeleteButton';
+import EditButton from './Buttons/EditButton';
 
 
 const Tasks: React.FC = () => {
@@ -32,13 +34,13 @@ const Tasks: React.FC = () => {
                                 Due: {format(task.endDate, 'Pp')}
                             </p>
                             <div className="mt-2">
-                                bruh
+                              {task.description}
                             </div>
                         </div>
                     </div>
                     <div className="mt-2 flex space-x-4">
-                        <button>Delete</button>
-                        <button>Edit</button>
+                        <DeleteButton/>
+                        <EditButton/>
                     </div>
                 </motion.div>
             ))}

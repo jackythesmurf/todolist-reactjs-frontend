@@ -29,12 +29,7 @@ const TaskForm: React.FC = ({}) => {
             );
 
           
-            const currentTasks =
-                queryClient.getQueryData<Task[]>('allTasks');
-            console.log(
-                'Current tasks after mutation:',
-                currentTasks,
-            );
+
         },
     });
 

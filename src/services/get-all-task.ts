@@ -7,7 +7,7 @@ const axiosClient = axios.create({
 });
 
 export const useGetAllTasks = () => {
-    return useQuery<Task[], Error>('task', async () => {
+    return useQuery<Task[], Error>('allTasks', async () => {
         const { data } = await axiosClient.get('/task');
         return data;
     });

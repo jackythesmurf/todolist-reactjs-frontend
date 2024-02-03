@@ -1,7 +1,4 @@
-import React from 'react';
-import Tasks from './Tasks';
-import AddButton from './Buttons/AddButton';
-import SortButton from './SelectOption/SortButton';
+import TasksList from './Task/TasksList';
 
 const Table = () => {
     return (
@@ -11,7 +8,7 @@ const Table = () => {
                     My Tasks
                 </h1>
             </div>
-            <Tasks />
+            <TasksList />
         </div>
     );
 };

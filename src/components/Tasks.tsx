@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useGetAllTasks } from '../services/get-all-task';
 import { format } from 'date-fns';
@@ -6,8 +5,12 @@ import { motion } from 'framer-motion';
 import DeleteButton from './Buttons/DeleteButton';
 import EditButton from './Buttons/EditButton';
 import SearchBar from './Buttons/SearchBar';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteTask } from '../services/delete-task';
+import { Task } from '../types/task';
 
 const Tasks: React.FC = () => {
+    const queryClient = useQueryClient();
     const { data: allTasks, isLoading, error } = useGetAllTasks();
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -20,6 +23,26 @@ const Tasks: React.FC = () => {
               )
             : allTasks;
     }, [searchTerm, allTasks]);
+
+    const deleteMutation = useMutation(deleteTask, {
+        onSuccess: (deletedTaskId) => {
+            queryClient.setQueryData<Task[]>(
+                'allTasks',
+                (oldTasks) => {
+                    const filteredTasks =
+                        oldTasks?.filter(
+                            (task) => task.id !== deletedTaskId,
+                        ) || [];
+
+                    return filteredTasks;
+                },
+            );
+        },
+    });
+
+    const handleDelete = (taskId: string) => {
+        deleteMutation.mutate(taskId);
+    };
 
     if (isLoading) return <div>Loading tasks...</div>;
     if (error)
@@ -55,7 +78,12 @@ const Tasks: React.FC = () => {
                             </div>
                         </div>
                         <div className="mt-2 flex space-x-4">
-                            <DeleteButton />
+                            <div
+                                onClick={() => handleDelete(task.id)}
+                            >
+                                <DeleteButton />
+                            </div>
+
                             <EditButton />
                         </div>
                     </motion.div>

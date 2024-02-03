@@ -1,4 +1,3 @@
-// components/SearchBar.tsx
 import React from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
 
@@ -20,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 <input
                     type="text"
                     className="w-full px-4 py-2"
-                    placeholder="live-search by task name"
+                    placeholder="Automatic search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />

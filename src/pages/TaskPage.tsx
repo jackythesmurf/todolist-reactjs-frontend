@@ -3,11 +3,11 @@ import TaskForm from '../components/TaskForm';
 import Modal from '../components/Model';
 import Table from '../components/Table';
 import AddButton from '../components/Buttons/AddButton';
-import SearchBar from '../components/Buttons/SearchBar';
+import SearchBar from '../components/SearchBar';
+import SortButton from '../components/SelectOption/SortButton';
 
 const TaskPage = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
-
     const toggleForm = () => setIsFormOpen(!isFormOpen);
 
     return (

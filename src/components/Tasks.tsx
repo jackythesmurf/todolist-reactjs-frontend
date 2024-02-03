@@ -4,25 +4,27 @@ import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import DeleteButton from './Buttons/DeleteButton';
 import EditButton from './Buttons/EditButton';
-import SearchBar from './Buttons/SearchBar';
+import SearchBar from './SearchBar';
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteTask } from '../services/delete-task';
 import { Task } from '../types/task';
+import SortButton from './SelectOption/SortButton';
+import { filterTasks } from '../utils/fitlerTasks';
+import { sortTasks } from '../utils/sortTasks';
 
 const Tasks: React.FC = () => {
     const queryClient = useQueryClient();
     const { data: allTasks, isLoading, error } = useGetAllTasks();
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedOption, setSelectedOption] =
+        useState('Sort Options');
 
-    const filteredTasks = useMemo(() => {
-        return searchTerm
-            ? allTasks?.filter((task) =>
-                  task.name
-                      .toLowerCase()
-                      .includes(searchTerm.toLowerCase()),
-              )
-            : allTasks;
-    }, [searchTerm, allTasks]);
+    const sortedAndFilteredTasks = useMemo(() => {
+        let filteredTasks = filterTasks(allTasks || [], searchTerm);
+        let sortedTasks = sortTasks(filteredTasks, selectedOption);
+
+        return sortedTasks;
+    }, [searchTerm, allTasks, selectedOption]);
 
     const deleteMutation = useMutation(deleteTask, {
         onSuccess: (deletedTaskId) => {
@@ -44,18 +46,34 @@ const Tasks: React.FC = () => {
         deleteMutation.mutate(taskId);
     };
 
+    const handleSortOptionChange = (option: string) => {
+        setSelectedOption(option);
+    };
+
     if (isLoading) return <div>Loading tasks...</div>;
     if (error)
         return <div>An error has occurred: {error.message}</div>;
 
     return (
         <div>
-            <SearchBar
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-            />
+            <div className="flex items-center space-x-6">
+                <div className="flex-grow">
+                    <SearchBar
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
+                </div>
+                <div className="flex-grow">
+                    <SortButton
+                        handleSortOptionChange={
+                            handleSortOptionChange
+                        }
+                    />
+                </div>
+            </div>
+
             <div className="mx-auto max-w-4xl space-y-4 overflow-auto rounded-lg bg-gray-50 p-6 font-mono text-gray-700">
-                {filteredTasks?.map((task) => (
+                {sortedAndFilteredTasks?.map((task) => (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}

@@ -1,6 +1,5 @@
 import React from 'react';
-import OptionItem from './OptionItem'; // Adjust the import path as necessary
-
+import OptionItem from './OptionItem';
 interface DropdownMenuProps {
     options: { label: string; value: string }[];
     onSelectOption: (value: string) => void;

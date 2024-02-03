@@ -8,7 +8,7 @@ const SortButton: React.FC<SortButtonProps> = ({
     handleSortOptionChange,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('endDate');
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const options = [

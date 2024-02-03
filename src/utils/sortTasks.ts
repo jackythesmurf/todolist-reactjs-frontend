@@ -14,6 +14,7 @@ export const sortTasks = (tasks: Task[], sortOption: string) => {
                     new Date(a.endDate).getTime() -
                     new Date(b.endDate).getTime(),
             );
+
         default:
             return tasks;
     }

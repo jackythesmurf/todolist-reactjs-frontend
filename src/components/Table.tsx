@@ -1,5 +1,6 @@
 import React from 'react';
 import Tasks from './Tasks';
+import AddButton from './Buttons/AddButton';
 
 const Table = () => {
     return (
@@ -9,7 +10,7 @@ const Table = () => {
                     My Tasks Today
                 </h1>
             </div>
-            <div className="mb-4 flex items-center justify-center space-x-4"></div>
+            
             <div className="prose prose-sm max-w-none">
                 <Tasks />
             </div>

@@ -1,4 +1,3 @@
-// components/TaskForm.tsx
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
@@ -12,7 +11,8 @@ interface TaskFormData {
     endDate: string;
 }
 
-const TaskForm: React.FC = () => {
+
+const TaskForm: React.FC = ({}) => {
     const {
         register,
         handleSubmit,
@@ -22,8 +22,19 @@ const TaskForm: React.FC = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation(addTask, {
-        onSuccess: () => {
-            queryClient.invalidateQueries('tasks');
+        onSuccess: (newTask) => {
+            queryClient.setQueryData<Task[]>(
+                'allTasks',
+                (oldTasks) => [...(oldTasks || []), newTask],
+            );
+
+          
+            const currentTasks =
+                queryClient.getQueryData<Task[]>('allTasks');
+            console.log(
+                'Current tasks after mutation:',
+                currentTasks,
+            );
         },
     });
 

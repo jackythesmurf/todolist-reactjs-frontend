@@ -10,7 +10,7 @@ const Table = () => {
                     My Tasks Today
                 </h1>
             </div>
-            
+
             <div className="prose prose-sm max-w-none">
                 <Tasks />
             </div>

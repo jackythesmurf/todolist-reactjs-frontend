@@ -11,7 +11,6 @@ const Table = () => {
                     My Tasks
                 </h1>
             </div>
-
             <Tasks />
         </div>
     );

@@ -11,6 +11,7 @@ import { Task } from '../types/task';
 import SortButton from './SelectOption/SortButton';
 import { filterTasks } from '../utils/fitlerTasks';
 import { sortTasks } from '../utils/sortTasks';
+import Description from './Description';
 
 const Tasks: React.FC = () => {
     const queryClient = useQueryClient();
@@ -72,7 +73,7 @@ const Tasks: React.FC = () => {
                 </div>
             </div>
 
-            <div className="mx-auto max-w-4xl space-y-4 overflow-auto rounded-lg bg-gray-50 p-6 font-mono text-gray-700">
+            <div className="mx-auto max-w-4xl space-y-6 overflow-auto rounded-lg bg-gray-50 p-6 font-mono text-gray-700">
                 {sortedAndFilteredTasks?.map((task) => (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
@@ -82,16 +83,27 @@ const Tasks: React.FC = () => {
                         className="mb-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                         key={task.id}
                     >
-                        <div className="flex justify-between">
+                        <div>
                             <div>
                                 <h1 className="text-xl font-semibold">
                                     {task.name}
                                 </h1>
                                 <p className="text-sm">
-                                    Due: {format(task.endDate, 'Pp')}
+                                    <strong className="text-blue-500">
+                                        Start:
+                                    </strong>{' '}
+                                    {format(task.startDate, 'Pp')}{' '}
+                                    {' | '}
+                                    <strong className="text-blue-500">
+                                        Due:
+                                    </strong>{' '}
+                                    {format(task.endDate, 'Pp')}
                                 </p>
-                                <div className="mt-2">
-                                    {task.description}
+
+                                <div>
+                                    <Description
+                                        description={task.description}
+                                    />
                                 </div>
                             </div>
                         </div>

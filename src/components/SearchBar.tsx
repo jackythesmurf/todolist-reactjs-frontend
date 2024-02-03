@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setSearchTerm,
 }) => {
     return (
-        <div className="flex max-w-lg ml-6">
+        <div className="ml-6">
             <div className="flex w-full overflow-hidden rounded border-2 shadow-sm">
                 <span className="flex items-center justify-center bg-gray-100 px-4 text-gray-600">
                     <SearchIcon className="h-5 w-5" />

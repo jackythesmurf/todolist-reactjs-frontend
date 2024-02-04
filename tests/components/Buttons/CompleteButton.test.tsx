@@ -5,10 +5,7 @@ import {
     it,
     expect,
     vi,
-    beforeEach,
-    afterEach,
 } from 'vitest';
-import React from 'react';
 
 describe('CompleteButton', () => {
     

@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 import TaskForm from '../../src/components/TaskForm';
-import { QueryClient, QueryClientProvider } from 'react-query';
+
 vi.mock('react-query', () => {
     const originalModule = vi.importActual('react-query');
 
@@ -28,7 +28,6 @@ vi.mock('../../src/services/create-task', () => ({
 }));
 
 describe('TaskForm component', () => {
-    const mockMutate = vi.fn();
 
     it('renders correctly with all input fields and submit button', () => {
         render(<TaskForm onClose={vi.fn()} />);

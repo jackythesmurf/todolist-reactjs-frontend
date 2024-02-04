@@ -1,3 +1,4 @@
+import React from 'react';
 import TasksList from './Task/TasksList';
 
 const Table = () => {

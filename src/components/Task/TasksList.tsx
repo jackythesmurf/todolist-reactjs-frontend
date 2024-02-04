@@ -1,27 +1,26 @@
 import React, { useState, useMemo } from 'react';
-import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { Task } from '../types/task';
-import { useGetAllTasks } from '../services/get-all-task';
-import { deleteTask } from '../services/delete-task';
-import { updateTask } from '../services/update-task';
+import { Task } from '../../types/task';
+import { useGetAllTasks } from '../../services/get-all-task';
+import { deleteTask } from '../../services/delete-task';
+import { updateTask } from '../../services/update-task';
 
-import DeleteButton from './Buttons/DeleteButton';
-import CompleteButton from './Buttons/CompleteButton';
-import SearchBar from './SearchBar';
-import SortButton from './SelectOption/SortButton';
-import Description from './Description';
+import DeleteButton from '../Buttons/DeleteButton';
+import CompleteButton from '../Buttons/CompleteButton';
+import SearchBar from '../SearchBar';
+import SortButton from '../SelectOption/SortButton';
 
-import { filterTasks } from '../utils/filterTasks';
-import { sortTasks } from '../utils/sortTasks';
+import { filterTasks } from '../../utils/filterTasks';
+import { sortTasks } from '../../utils/sortTasks';
+import TaskSummary from './TaskSummary';
 
-const Tasks: React.FC = () => {
+const TasksList: React.FC = () => {
     const queryClient = useQueryClient();
     const { data: allTasks, isLoading, error } = useGetAllTasks();
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('endDate');
 
     const sortedAndFilteredTasks = useMemo(
         () =>
@@ -57,13 +56,17 @@ const Tasks: React.FC = () => {
     return (
         <div>
             <div className="flex items-center space-x-6">
-                <SearchBar
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                />
-                <SortButton
-                    handleSortOptionChange={setSelectedOption}
-                />
+                <div className="flex-grow">
+                    <SearchBar
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
+                </div>
+                <div className="flex-grow">
+                    <SortButton
+                        handleSortOptionChange={setSelectedOption}
+                    />
+                </div>
             </div>
 
             <div className="mx-auto max-w-4xl space-y-6 overflow-auto rounded-lg bg-gray-50 p-6 font-mono text-gray-700">
@@ -76,35 +79,13 @@ const Tasks: React.FC = () => {
                         transition={{ duration: 0.5 }}
                         className="mb-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                     >
-                        <div>
-                            <h1 className="text-xl font-semibold">
-                                {task.name}
-                            </h1>
-                            <p className="text-sm">
-                                <strong className="text-blue-500">
-                                    Start:
-                                </strong>{' '}
-                                {format(
-                                    new Date(task.startDate),
-                                    'Pp',
-                                )}{' '}
-                                |{' '}
-                                <strong className="text-blue-500">
-                                    Due:
-                                </strong>{' '}
-                                {format(new Date(task.endDate), 'Pp')}
-                            </p>
-                            <Description
-                                description={task.description}
-                            />
-                        </div>
+                        <TaskSummary task={task} />
                         <div className="mt-2 flex space-x-4">
                             <div
                                 onClick={() => handleDelete(task.id)}
                             >
                                 <DeleteButton />
                             </div>
-
                             <div>
                                 <CompleteButton
                                     isComplete={task.finished}
@@ -121,4 +102,4 @@ const Tasks: React.FC = () => {
     );
 };
 
-export default Tasks;
+export default TasksList;

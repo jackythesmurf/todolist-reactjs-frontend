@@ -81,11 +81,9 @@ const TasksList: React.FC = () => {
                     >
                         <TaskSummary task={task} />
                         <div className="mt-2 flex space-x-4">
-                            <div
+                            <DeleteButton
                                 onClick={() => handleDelete(task.id)}
-                            >
-                                <DeleteButton />
-                            </div>
+                            />
                             <div>
                                 <CompleteButton
                                     isComplete={task.finished}

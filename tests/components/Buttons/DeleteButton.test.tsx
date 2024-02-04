@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import DeleteButton from '../../../src/components/Buttons/DeleteButton'; // Adjust the import path as necessary
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import '@testing-library/jest-dom/extend-expect';
 
 describe('DeleteButton', () => {
     let onDeleteMock: () => void;

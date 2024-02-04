@@ -11,8 +11,11 @@ interface TaskFormData {
     endDate: string;
 }
 
+interface TaskFormProps {
+    onClose: () => void;
+}
 
-const TaskForm: React.FC = ({}) => {
+const TaskForm: React.FC<TaskFormProps> = ({ onClose }) => {
     const {
         register,
         handleSubmit,
@@ -27,9 +30,12 @@ const TaskForm: React.FC = ({}) => {
                 'allTasks',
                 (oldTasks) => [...(oldTasks || []), newTask],
             );
-
-          
-
+            onClose();
+        },
+        onError: (error: any) => {
+            alert(
+                `An error occurred: ${error.message || 'Could not complete the request'}`,
+            );
         },
     });
 

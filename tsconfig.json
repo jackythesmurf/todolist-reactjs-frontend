@@ -23,7 +23,7 @@
     "include": [
         "src",
         "tests/setup.ts",
-        "tests/components/Buttons/AddButton.test.tsx",
+        "tests/",
     ],
     "references": [{ "path": "./tsconfig.node.json" }],
 }

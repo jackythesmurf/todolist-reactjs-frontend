@@ -1,12 +1,12 @@
 import { format } from "date-fns";
 import { Task } from "../../types/task";
-import Description from "../Description";
+import TaskDescription from './TaskDescription';
 
-interface TaskDetailsProps {
+interface TaskSummaryProps {
     task: Task
 }
 
-const TaskDetails: React.FC<TaskDetailsProps> = ({task}) => {
+const TaskSummary: React.FC<TaskSummaryProps> = ({task}) => {
     return (
         <div>
             <div>
@@ -17,10 +17,10 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({task}) => {
                     <strong className="text-blue-500">Due:</strong>{' '}
                     {format(new Date(task.endDate), 'Pp')}
                 </p>
-                <Description description={task.description} />
+                <TaskDescription description={task.description} />
             </div>
         </div>
     );
 };
 
-export default TaskDetails
+export default TaskSummary;

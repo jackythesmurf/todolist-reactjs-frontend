@@ -14,7 +14,7 @@ import SortButton from '../SelectOption/SortButton';
 
 import { filterTasks } from '../../utils/filterTasks';
 import { sortTasks } from '../../utils/sortTasks';
-import TaskDetails from './TaskDetails';
+import TaskSummary from './TaskSummary';
 
 const TasksList: React.FC = () => {
     const queryClient = useQueryClient();
@@ -56,19 +56,17 @@ const TasksList: React.FC = () => {
     return (
         <div>
             <div className="flex items-center space-x-6">
-                <div className='flex-grow'>
-                   <SearchBar
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                /> 
+                <div className="flex-grow">
+                    <SearchBar
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
                 </div>
-                <div className='flex-grow'>
+                <div className="flex-grow">
                     <SortButton
-                    handleSortOptionChange={setSelectedOption}
-                />
+                        handleSortOptionChange={setSelectedOption}
+                    />
                 </div>
-                
-                
             </div>
 
             <div className="mx-auto max-w-4xl space-y-6 overflow-auto rounded-lg bg-gray-50 p-6 font-mono text-gray-700">
@@ -81,7 +79,7 @@ const TasksList: React.FC = () => {
                         transition={{ duration: 0.5 }}
                         className="mb-4 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                     >
-                        <TaskDetails task={task}/>
+                        <TaskSummary task={task} />
                         <div className="mt-2 flex space-x-4">
                             <div
                                 onClick={() => handleDelete(task.id)}

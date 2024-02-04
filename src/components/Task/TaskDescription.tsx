@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-interface DescriptionProps {
+interface TaskDescriptionProps {
     description: string;
 }
 
-const Description: React.FC<DescriptionProps> = ({ description }) => {
+const TaskDescription: React.FC<TaskDescriptionProps> = ({ description }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const maxLength = 50;
 
@@ -34,4 +34,4 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
     );
 };
 
-export default Description;
+export default TaskDescription;

@@ -1,12 +1,16 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import TaskPage from '../../src/pages/TaskPage';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, vi, it, expect } from 'vitest';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
 vi.mock('../components/Modal', () => ({
     __esModule: true,
-    default: ({ isOpen, children }: { isOpen: boolean, children: React.ReactNode }) =>
-        isOpen ? <div>{children}</div> : null,
+    default: ({
+        isOpen,
+        children,
+    }: {
+        isOpen: boolean;
+        children: React.ReactNode;
+    }) => (isOpen ? <div>{children}</div> : null),
 }));
 
 describe('TaskPage component', () => {
@@ -17,14 +21,13 @@ describe('TaskPage component', () => {
                 <TaskPage />
             </QueryClientProvider>,
         );
-
         const addButton = screen.getByRole('button', {
             name: 'Add Task',
         });
         expect(addButton).toBeInTheDocument();
+
         fireEvent.click(addButton);
 
-        expect(screen.getByText('Name:')).toBeInTheDocument(); 
+        expect(screen.getByText('Name:')).toBeInTheDocument();
     });
-
 });

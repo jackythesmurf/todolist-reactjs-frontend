@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import TaskDescription from '../../../src/components/Task/TaskDescription.tsx';
 import { describe, it, expect, vi } from 'vitest';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 describe('TaskDescription', () => {
     const shortDescription = 'Short description.';
@@ -8,7 +9,12 @@ describe('TaskDescription', () => {
         'This is a very long description meant to exceed the maximum length of 50 characters set by the component.';
 
     it('renders without "Read More" for short descriptions', () => {
-        render(<TaskDescription description={shortDescription} />);
+        const queryClient = new QueryClient();
+        render(
+            <QueryClientProvider client={queryClient}>
+                <TaskDescription description={shortDescription} />
+            </QueryClientProvider>,
+        );
         expect(
             screen.queryByText('Read More'),
         ).not.toBeInTheDocument();
@@ -18,7 +24,12 @@ describe('TaskDescription', () => {
     });
 
     it('expands the description when "Read More" is clicked', async () => {
-        render(<TaskDescription description={longDescription} />);
+        const queryClient = new QueryClient();
+        render(
+            <QueryClientProvider client={queryClient}>
+                <TaskDescription description={longDescription} />
+            </QueryClientProvider>,
+        );
         const readMoreButton = screen.getByText('Read More');
         fireEvent.click(readMoreButton);
         expect(

@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface AddButtonProps{
-    toggleForm: () => void
+interface AddButtonProps {
+    toggleForm: () => void;
 }
 
-const AddButton: React.FC<AddButtonProps> = ({toggleForm}) => {
+const AddButton: React.FC<AddButtonProps> = ({ toggleForm }) => {
     return (
         <button
             onClick={toggleForm}

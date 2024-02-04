@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import DeleteButton from '../../../src/components/Buttons/DeleteButton'; // Adjust the import path as necessary
+import DeleteButton from '../../../src/components/Buttons/DeleteButton'; 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 describe('DeleteButton', () => {
